@@ -1,7 +1,7 @@
 {
   "name": "highlighter",
   "version": "1.0.0",
-  "description": "",
+  "description": "drag excel sheet file onto executable and it will add the necessary tariffs onto the excel sheet",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,5 +17,7 @@
   "devDependencies": {
     "pkg": "^5.8.1"
   },
-  "bin": "index.js"
+  "bin": {
+    "highlighter": "index.js"
+  }
 }

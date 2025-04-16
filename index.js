@@ -343,7 +343,6 @@ const steelTariffs2 = [
   "94059940",
   "84314200",
   "84321000",
-  "94032000",
   "94062000",
   "84314910",
   "84329000",
@@ -355,7 +354,6 @@ const steelTariffs2 = [
   "9405.99.40",
   "8431.42.00",
   "8432.10.00",
-  "9403.20.00",
   "9406.20.00",
   "8431.49.10",
   "8432.90.00",
@@ -385,7 +383,6 @@ const alumTariffs = [
   "8529907300",
   "8538100000",
   "8547900020",
-  "8708103050",
   "8708806590",
   "8807300060",
   "9401999081",
@@ -457,7 +454,6 @@ const alumTariffs = [
   "8708295160",
   "8716805010",
   "9031909195",
-  "94032000",
   "9403999015",
   "9403999045",
   "9506514000",
@@ -489,7 +485,6 @@ const alumTariffs = [
   "8529.90.7300",
   "8538.10.0000",
   "8547.90.0020",
-  "8708.10.3050",
   "8708.80.6590",
   "8807.30.0060",
   "9401.99.9081",
@@ -561,7 +556,6 @@ const alumTariffs = [
   "8708.29.5160",
   "8716.80.5010",
   "9031.90.9195",
-  "9403.20.00",
   "9403.99.9015",
   "9403.99.9045",
   "9506.51.4000",
@@ -615,6 +609,51 @@ const alumTariffs2 = [
   "7616.99.5140",
 ];
 
+const tariffElectronics = [
+  "8486",
+  "8517.13.00",
+  "85171300",
+  "85176200",
+  "8517.62.00",
+  "8523.51.00",
+  "85235100",
+  "8524",
+  "8528.52.00",
+  "85285200",
+  "85411000",
+  "8541.10.00",
+  "8541.21.00",
+  "85412100",
+  "8541.21.00",
+  "8541.29.00",
+  "85412900",
+  "8541.30.00",
+  "85413000",
+  "8541.49.10",
+  "85414910",
+  "8541.49.70",
+  "85414970",
+  "8541.49.80",
+  "85414980",
+  "8541.49.95",
+  "85414995",
+  "8541.51.00",
+  "85415100",
+  "8541.59.00",
+  "85415900",
+  "8542",
+];
+
+const steelNAlumn = [
+  "94032000",
+  "9403.20.00",
+  "87081030",
+  "8708.10.30",
+  "87082921",
+  "8708.29.21",
+];
+const alumnSteel = ["94032000", "9403.20.00"];
+
 // Function to highlight numbers in an Excel file
 async function highlightNumbers(inputFilePath, outputFilePath) {
   const workbook = new ExcelJS.Workbook();
@@ -644,40 +683,85 @@ async function highlightNumbers(inputFilePath, outputFilePath) {
           const isMatch4 = alumTariffs2.some((tariff) =>
             cellValue.includes(tariff)
           );
-          // 99038190
-          if (isMatch) {
-            cell.value += " \n99038190";
+          const isMatch5 = tariffElectronics.some((tariff) =>
+            cellValue.includes(tariff)
+          );
+          const isMatch6 = steelNAlumn.some((tariff) =>
+            cellValue.includes(tariff)
+          );
+          const isMatch7 = alumnSteel.some((tariff) =>
+            cellValue.includes(tariff)
+          );
+
+          //both steel and alumn
+          if (isMatch7) {
+            cell.value += "\n99038191\n99038508\n99030163";
             cell.font = {
               name: "Arial",
-              size: 12,
+              size: 8,
+              color: { argb: "00000000" }, // black text
+            };
+          }
+          //both steel and alumn
+          else if (isMatch6) {
+            cell.value += "\n99038189";
+            cell.font = {
+              name: "Arial",
+              size: 8,
+              color: { argb: "00000000" }, // black text
+            };
+          }
+
+          //99030132
+          else if (isMatch5) {
+            cell.value += "\n99030132";
+            cell.font = {
+              name: "Arial",
+              size: 8,
+              color: { argb: "00000000" }, // black text
+            };
+          }
+
+          // 99038190
+          else if (isMatch) {
+            cell.value += "\n99038190\n99030132";
+            cell.font = {
+              name: "Arial",
+              size: 8,
               color: { argb: "00000000" }, // black text
             };
           }
           // 99038191
-          if (isMatch2) {
-            cell.value += " \n99038191";
+          else if (isMatch2) {
+            cell.value += "\n99038191\n99030132";
             cell.font = {
               name: "Arial",
-              size: 12,
+              size: 8,
               color: { argb: "00000000" }, // black text
             };
           }
           // 99038508
-          if (isMatch3) {
-            cell.value += " \n99038508";
+          else if (isMatch3) {
+            cell.value += "\n99038508\n99030163";
             cell.font = {
               name: "Arial",
-              size: 12,
+              size: 8,
               color: { argb: "00000000" }, // black text
             };
           }
 
           // 99038507
-          if (isMatch4) {
-            cell.value += " \n99038507";
+          else if (isMatch4) {
+            cell.value += "\n99038507\n99030132";
             cell.font = {
               name: "Arial",
-              size: 12,
+              size: 8,
+              color: { argb: "00000000" }, // black text
+            };
+          } else {
+            cell.font = {
+              name: "Arial",
+              size: 10,
               color: { argb: "00000000" }, // black text
             };
           }
